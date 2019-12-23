@@ -71,7 +71,7 @@
   
   .btn:hover {
     opacity: 0.7;
-  }
+  } 
   
   /* MENU STYLES */
   .menu-wrap {
@@ -214,5 +214,4 @@
     text-decoration: none;
     transition: color 0.4s ease;
   }
-  
   

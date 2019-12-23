@@ -1,4 +1,4 @@
-/* Custom Stylesheet */
+/* Custom Stylesheet
 /**
  * Use this file to override Materialize files so you can update
  * the core Materialize files in the future
@@ -25,4 +25,4 @@ main {
 footer.page-footer {
   padding-top: 0;
   text-align: right;
-}
+} 
