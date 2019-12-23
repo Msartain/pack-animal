@@ -8,6 +8,7 @@ class Destination(models.Model):
     location = models.CharField(max_length=100)
     start_date = models.DateField()
     end_date = models.DateField()
+    
     completed = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     
@@ -30,8 +31,8 @@ class Destination(models.Model):
         #     day = Day(date=start_date + timedelta(days=i), destination_id=destination_id)
         #     day.save()
 
-    class Meta:
-        ordering = ['-start_date']
+class Meta:
+    ordering = ['-start_date']
 
 class Day(models.Model):
     date = models.DateField()
