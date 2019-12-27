@@ -8,10 +8,28 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from .models import Destination, Day, Activity, Item
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.conf import settings
 
 
 import os
 import calendar
+import requests, json
+
+api_key = GOOGLE_MAPS_API_KEY
+
+def get_attractions(request):
+    location = request.POST.get('location','')
+    print(f'THIS IS THE INPUT: {location}')
+    url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
+    r = requests.get(url + 'location=' + location + '&key=' + api_key)
+    x = r.json()
+    y = x['results']
+    for i in range(len(y)):
+        print(y[i]['name'])
+    return render(request, "discover.html", {'location':location})
+
+
+
 # Create your views here.
 
 def home(request):
@@ -45,15 +63,6 @@ def destination(request, destination_id):
     return render(request, "destinations/destination.html", context)
 
 
-# class PackingDetail(LoginRequiredMixin, DetailView):
-#     model = Packing
-
-#     def get_context_data(self, **kwargs):
-#         context = super(PackingDetail, self).get_context_data(**kwargs)
-#         context['test'] = self.object_list.first
-        
-#         return context
-
 class ItemList(LoginRequiredMixin, ListView):
     model = Item
 
@@ -63,10 +72,10 @@ class ItemList(LoginRequiredMixin, ListView):
         
         return context
 
-def discover(request):
-    location = request.POST.get('location','')
-    print(f'location is {location}')
-    return render(request, "discover.html", {'location':location})
+# def discover(request):
+#     location = request.POST.get('location','')
+#     print(f'location is {location}')
+#     return render(request, "discover.html", {'location':location})
 
 
 class DayDetail(LoginRequiredMixin, DetailView):
