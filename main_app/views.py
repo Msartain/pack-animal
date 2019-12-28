@@ -15,22 +15,22 @@ import os
 import calendar
 import requests, json
 
-api_key = GOOGLE_MAPS_API_KEY
+# API_KEY = API_KEY
 
 def get_attractions(request):
-    location = request.POST.get('location','')
-    print(f'THIS IS THE INPUT: {location}')
     url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
-    r = requests.get(url + 'location=' + location + '&key=' + api_key)
-    x = r.json()
-    y = x['results']
-    for i in range(len(y)):
-        print(y[i]['name'])
-    return render(request, "discover.html", {'location':location})
+    location = request.POST.get('location','')
+    x = 'point of interest'
+    r = requests.get(url + 'query=' + location +
+                            'type=' +  x +
+                            '&key=' + API_KEY)
+    data = r.json()
+    attractions = data['results']
+    context = {'location':location,
+               'attractions': attractions
+               }
+    return render(request, "discover.html", context)
 
-
-
-# Create your views here.
 
 def home(request):
     return render(request, "home.html")
@@ -71,12 +71,6 @@ class ItemList(LoginRequiredMixin, ListView):
         context['test'] = self.object_list.first
         
         return context
-
-# def discover(request):
-#     location = request.POST.get('location','')
-#     print(f'location is {location}')
-#     return render(request, "discover.html", {'location':location})
-
 
 class DayDetail(LoginRequiredMixin, DetailView):
     model = Day
