@@ -16,7 +16,7 @@ import os
 import calendar
 import requests, json
 
-# API_KEY = API_KEY
+# API_KEY = API_KEY 
 
 def get_attractions(request):
     url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
